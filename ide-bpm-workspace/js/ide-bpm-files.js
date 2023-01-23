@@ -1,15 +1,19 @@
 /*
- * Copyright (c) 2022 SAP SE or an SAP affiliate company and Eclipse Dirigible contributors
+ * Copyright (c) 2023 SAP SE or an SAP affiliate company and Eclipse Dirigible contributors
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v2.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v20.html
  *
- * SPDX-FileCopyrightText: 2022 SAP SE or an SAP affiliate company and Eclipse Dirigible contributors
+ * SPDX-FileCopyrightText: 2023 SAP SE or an SAP affiliate company and Eclipse Dirigible contributors
  * SPDX-License-Identifier: EPL-2.0
  */
 let ideBpmFilesView = angular.module('ide-bpm-files', ['ideUI', 'ideView']);
+
+ideBpmFilesView.config(["messageHubProvider", function (messageHubProvider) {
+    messageHubProvider.eventIdPrefix = 'IDEBPMWorkspace';
+}]);
 
 ideBpmFilesView.controller('IDEBpmFilesViewController', ['$scope', 'messageHub', function ($scope, messageHub) {
     $scope.searchVisible = false;
@@ -84,15 +88,7 @@ ideBpmFilesView.controller('IDEBpmFilesViewController', ['$scope', 'messageHub',
                     },
                 },
             }).on("select_node.jstree", function (e, data) {
-                console.log("node_text: " + data.node.text);
-                const nodeText = data.node.text;
-
-                messageHub.openEditor(
-                    nodeText,
-                    nodeText,
-                    "image/png",
-                    "bpmImage"
-                );
+                messageHub.postMessage('image-viewer.image', { filename: data.node.text });
             });
         });
 }]);
