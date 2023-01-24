@@ -9,7 +9,7 @@ BPM Workspace Plugin for the [Eclipse Dirigible](https://github.com/eclipse/diri
 
 Build the [Eclipse Dirigible](https://github.com/eclipse/dirigible), deploy on e.g. Tomcat Web Container and go to location:
 
-> http://localhost:8080/services/v4/web/ide-bpm-workspace/index.html
+> http://localhost:8080/services/v8/web/ide-bpm-workspace/index.html
 
 ## License
 
